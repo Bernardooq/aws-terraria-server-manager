@@ -52,7 +52,7 @@ A fully serverless web application built on AWS that allows users to register, l
 - AWS IAM (secure roles and permissions)
 
 ## 🗂️ Folder Structure
-
+`
 aws-terraria-server-manager/
 ├── frontend/
 │   ├── index.html
@@ -75,3 +75,4 @@ aws-terraria-server-manager/
 │   ├── test-cases.pdf
 │
 ├── README.md
+`

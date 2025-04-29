@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>GameHost - Registrarse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #00ffcc;
+      font-family: 'Press Start 2P', cursive;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .register-container {
+      background-color: #1a1a1a;
+      border: 2px solid #00ffcc;
+      border-radius: 12px;
+      padding: 40px;
+      width: 400px;
+      box-shadow: 0 0 15px #00ffcc;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .register-container h2 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-size: 10px;
+      color: #00ffff;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      background-color: #0f0f0f;
+      border: 2px solid #00ffcc;
+      border-radius: 5px;
+      color: #00ffcc;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+      box-sizing: border-box;
+    }
+
+    .btn {
+      margin-top: 25px;
+      width: 100%;
+      padding: 15px;
+      background-color: #00ffcc;
+      color: #000;
+      border: none;
+      font-size: 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #00ffff;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 10px;
+    }
+
+    .back-link a {
+      color: #00ffff;
+      text-decoration: none;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h2>📝 Registrarse</h2>
+    <form id="register-form">
+      <label for="username">Usuario</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="email">Correo electrónico</label>
+      <input type="text" id="email" name="email" required>
+
+      <label for="password">Contraseña</label>
+      <input type="text" id="password" name="password" required>
+
+      <button type="submit" class="btn">Crear Cuenta</button>
+    </form>
+    <div class="back-link">
+      <a href="index.html">⬅ Volver al inicio</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('register-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      // Validacion de email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('⚠️ El correo electrónico no es válido');
+        return;
+      }
+
+    // Validar longitud password
+      if (password.length < 8) {
+        alert('⚠️ La contraseña debe tener al menos 8 caracteres');
+        return;
+      }
+
+      const payload = {
+        User: { username, email, password }
+      };
+
+      // Post a API gateway
+      try {
+        const response = await fetch('https://xc000gpm1j.execute-api.us-east-2.amazonaws.com/Dev/createuser', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+        
+        if (response.ok && data.statusCode === 201) {
+          alert('✅ Usuario registrado con éxito');
+          window.location.href = 'index.html';
+        } else {
+          alert('⚠ Error: ' + JSON.parse(data.body).error);
+        }
+      } catch (err) {
+        console.error(err);
+        alert('❌ Error al conectar con el servidor');
+      }
+    });
+  </script>
+</body>
+</html>

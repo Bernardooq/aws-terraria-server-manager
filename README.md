@@ -15,16 +15,14 @@ A fully serverless web application built on AWS that allows users to register, l
 
 ## 🧱 Architecture Overview
 
-- **Frontend:**  
-  Static HTML/CSS/JavaScript pages hosted on **Amazon S3**  
-  Pages: `index.html`, `login.html`, `register.html`, `profile.html`
+- **Frontend:**Static HTML/CSS/JavaScript pages hosted on **Amazon S3**Pages: `index.html`, `login.html`, `register.html`, `profile.html`
+- **Backend:**
 
-- **Backend:**  
   - **Lambda Functions** for all backend logic (auth, EC2 operations, monitoring)
   - **API Gateway** exposing RESTful endpoints
   - **Amazon EC2** instances launched using a **custom AMI** with Terraria pre-installed and configured
   - **Route 53** for custom domain and DNS routing
-  - Optional: **DynamoDB or S3** to associate EC2 instances to user accounts
+  - **DynamoDB and S3** to associate EC2 instances to user accounts
 
 ## 🚀 How It Works
 
@@ -36,9 +34,9 @@ A fully serverless web application built on AWS that allows users to register, l
 
 ## 🌐 Pages
 
-- `index.html`: Welcome / landing page  
-- `register.html`: Sign-up form  
-- `login.html`: User authentication  
+- `index.html`: Welcome / landing page
+- `register.html`: Sign-up form
+- `login.html`: User authentication
 - `profile.html`: Server control dashboard (status, start/stop, metrics)
 
 ## 🛠️ Technologies Used
@@ -50,8 +48,10 @@ A fully serverless web application built on AWS that allows users to register, l
 - AWS EC2 (Terraria servers via AMI)
 - AWS Route 53 (custom domain and DNS)
 - AWS IAM (secure roles and permissions)
+- AWS DynamoDB (store user accounts)
 
 ## 🗂️ Folder Structure
+
 ```
 aws-terraria-server-manager/
 
@@ -62,6 +62,7 @@ aws-terraria-server-manager/
 │   ├── profile.html
 
 ├── lambdas/
+│   ├── newInstance.py
 │   ├── loginHandler.py
 │   ├── registerHandler.py
 │   ├── startFinishInstance.py
@@ -77,4 +78,3 @@ aws-terraria-server-manager/
 
 ├── README.md
 ```
-

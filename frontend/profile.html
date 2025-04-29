@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>GameHost - Perfil de Usuario</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #00ffcc;
+      font-family: 'Press Start 2P', cursive;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      background-color: #1a1a1a;
+      border-bottom: 2px solid #00ffcc;
+    }
+
+    header h1 {
+      font-size: 20px;
+      margin: 0;
+      text-shadow: 0 0 5px #00ffcc;
+    }
+
+    .logout {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 10px;
+      text-decoration: none;
+      color: #ff0066;
+    }
+
+    .section {
+      padding: 30px;
+    }
+
+    .section h2 {
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: #00ffff;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .gallery img,
+    .gallery video {
+      border: 2px solid #00ffcc;
+      border-radius: 10px;
+      max-width: 200px;
+      max-height: 150px;
+      object-fit: cover;
+    }
+
+    .upload-form {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .upload-form input[type="file"] {
+      margin: 10px 0;
+      background: #1a1a1a;
+      border: 1px solid #00ffcc;
+      color: #00ffcc;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+    }
+
+    .btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #00ffcc;
+      color: #000;
+      border: none;
+      font-size: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #00ffff;
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 8px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>👤 Email: <span id="email"></span></h1>
+    <h1>👤 Username: <span id="username"></span></h1>
+    <hr>
+    <a href="index.html" class="btn">Home</a>
+  </header>
+
+  <div class="section">
+    <h2>💻 Instancias del usuario</h2>
+    <div class="instan">
+      <p id="instances"></p>
+    </div>
+    <h2>🖼️ Galería de Imágenes</h2>
+    <div class="gallery">
+      <!-- Imágenes subidas -->
+      <img src="img/sample1.jpg" alt="Imagen 1">
+      <img src="img/sample2.jpg" alt="Imagen 2">
+    </div>
+
+    <div class="upload-form">
+      <form action="/upload-image" method="post" enctype="multipart/form-data">
+        <label for="image">Subir imagen:</label><br>
+        <input type="file" name="image" id="image" accept="image/*" required><br>
+        <button type="submit" class="btn">Subir Imagen</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🎥 Galería de Videos</h2>
+    <div class="gallery">
+      <!-- Videos subidos -->
+      <video controls>
+        <source src="video/sample1.mp4" type="video/mp4">
+        Tu navegador no soporta videos.
+      </video>
+      <video controls>
+        <source src="video/sample2.mp4" type="video/mp4">
+        Tu navegador no soporta videos.
+      </video>
+    </div>
+
+    <div class="upload-form">
+      <form action="/upload-video" method="post" enctype="multipart/form-data">
+        <label for="video">Subir video:</label><br>
+        <input type="file" name="video" id="video" accept="video/*" required><br>
+        <button type="submit" class="btn">Subir Video</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    GameHost © 2025 - Servidores épicos para gamers épicos 🎮🔥
+  </footer>
+
+  <script>
+    
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const CONSULTAR_ESTADO_URL = "https://xc000gpm1j.execute-api.us-east-2.amazonaws.com/Dev/instancestate";
+      emailText=document.getElementById('email');
+      perfilText=document.getElementById('username');
+      instancesText=document.getElementById('instances');
+      emailText.textContent=localStorage.getItem('email');
+      perfilText.textContent=localStorage.getItem('username');
+      
+      const user= localStorage.getItem('email');
+      const passwd= localStorage.getItem('password');
+      async function consultarEstado() {
+      try {
+        const res = await fetch(CONSULTAR_ESTADO_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ User: { email: user, password: passwd } })
+        });
+  
+        const data = await res.json();
+        console.log(JSON.stringify(data));
+        const instances=data.instances;
+        if (!instances || instances.length === 0) {
+          instancesText.textContent = "💤 No hay instancias activas de Terraria.";
+          return;
+        }
+
+        let instancesContent ='';
+        instances.forEach(instancia => {
+            if (instancia.State === "running") {
+              instancesContent += `✅ Servidor en ejecución<br>🆔 ID: ${instancia.InstanceId}<br>🌐 IP: ${instancia.PublicIpAddress}<br>📊 Uso del CPU: ${instancia.cpuUtilization}<br><br>`;
+            } else {
+              instancesContent  += "🛑 Servidor detenido<br><br>";
+            }
+        });
+
+        instancesText.innerHTML = instancesContent;
+  
+      } catch (err) {
+        console.error(err);
+        instancesText.textContent = "❌ Error al consultar estado.";
+      }
+    };
+    consultarEstado();
+
+    });
+  </script>
+</body>
+</html>

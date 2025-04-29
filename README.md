@@ -53,7 +53,7 @@ A fully serverless web application built on AWS that allows users to register, l
 
 ## 🗂️ Folder Structure
 ```
-aws-terraria-server-manager
+aws-terraria-server-manager/
 
 ├── frontend/
 │   ├── index.html

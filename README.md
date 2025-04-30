@@ -59,20 +59,20 @@ aws-terraria-server-manager/
 │   ├── index.html
 │   ├── login.html
 │   ├── register.html
-│   ├── profile.html
+│   └── profile.html
 
 ├── lambdas/
 │   ├── newInstance.py
 │   ├── loginHandler.py
 │   ├── registerHandler.py
 │   ├── startFinishInstance.py
-│   ├── getInstanceStatus.py
+│   └── getInstanceStatus.py
 
 ├── diagrams/
 │   └── architecture.pdf
 
 ├── docs/
-│   ├── project-details.pdf
+│   └── project-details.pdf
 
-├── README.md
+└── README.md
 ```

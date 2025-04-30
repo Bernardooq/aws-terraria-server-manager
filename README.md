@@ -34,10 +34,10 @@ A fully serverless web application built on AWS that allows users to register, l
 
 ## 🌐 Pages
 
-- `index.html`: Welcome / landing page
+- `index.html`: Welcome / landing page / Server control dashboard (status, start/stop, metrics)
 - `register.html`: Sign-up form
 - `login.html`: User authentication
-- `profile.html`: Server control dashboard (status, start/stop, metrics)
+- `profile.html`: Server dashboard (status, metrics)
 
 ## 🛠️ Technologies Used
 

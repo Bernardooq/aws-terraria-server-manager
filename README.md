@@ -70,11 +70,9 @@ aws-terraria-server-manager/
 
 ├── diagrams/
 │   └── architecture.pdf
-│   └── flow-diagram.png
 
 ├── docs/
 │   ├── project-details.pdf
-│   ├── test-cases.pdf
 
 ├── README.md
 ```

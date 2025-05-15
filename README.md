@@ -1,8 +1,8 @@
-# 🌩️ AWS Serverless Terraria Server Manager
+# AWS Serverless Terraria Server Manager
 
 A fully serverless web application built on AWS that allows users to register, log in, and manage their own preconfigured Terraria game servers through a simple and secure interface.
 
-## 🎮 Features
+## Features
 
 - Static frontend hosted on Amazon S3
 - User registration and login via AWS Lambda + API Gateway
@@ -13,7 +13,7 @@ A fully serverless web application built on AWS that allows users to register, l
 - Custom domain routing with Route 53
 - Responses are handled client-side with plain JavaScript
 
-## 🧱 Architecture Overview
+## Architecture Overview
 
 - **Frontend:**Static HTML/CSS/JavaScript pages hosted on **Amazon S3**Pages: `index.html`, `login.html`, `register.html`, `profile.html`
 - **Backend:**
@@ -24,7 +24,7 @@ A fully serverless web application built on AWS that allows users to register, l
   - **Route 53** for custom domain and DNS routing
   - **DynamoDB and S3** to associate EC2 instances to user accounts
 
-## 🚀 How It Works
+## How It Works
 
 1. Users register and log in via frontend pages using API Gateway + Lambda.
 2. After login, the profile page allows:
@@ -32,14 +32,14 @@ A fully serverless web application built on AWS that allows users to register, l
    - Viewing instance metadata and real-time stats
 3. Each instance is tied to a specific user and monitored through AWS APIs.
 
-## 🌐 Pages
+## Pages
 
 - `index.html`: Welcome / landing page
 - `register.html`: Sign-up form
 - `login.html`: User authentication
 - `profile.html`: Server control dashboard (status, start/stop, metrics)
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - HTML, CSS, Vanilla JavaScript
 - AWS S3 (static hosting)

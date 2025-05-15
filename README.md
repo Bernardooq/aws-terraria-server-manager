@@ -15,7 +15,10 @@ A fully serverless web application built on AWS that allows users to register, l
 
 ## Architecture Overview
 
-- **Frontend:**Static HTML/CSS/JavaScript pages hosted on **Amazon S3**Pages: `index.html`, `login.html`, `register.html`, `profile.html`
+- **Frontend:**
+  - Static HTML/CSS/JavaScript pages hosted on **Amazon S3**
+  - Pages: `index.html`, `login.html`, `register.html`, `profile.html`
+    
 - **Backend:**
 
   - **Lambda Functions** for all backend logic (auth, EC2 operations, monitoring)
